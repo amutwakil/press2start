@@ -7,7 +7,7 @@ class CreateGames < ActiveRecord::Migration[7.0]
       t.references :genre, null: false, foreign_key: true
       t.references :publisher, null: false, foreign_key: true
       t.references :developer, null: false, foreign_key: true
-      #wallahilazeem, wallahilazeem
+
 
       t.timestamps
     end

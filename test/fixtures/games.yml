@@ -4,8 +4,14 @@ one:
   title: MyString
   year: 1
   review: MyText
+  genre: one
+  publisher: one
+  developer: one
 
 two:
   title: MyString
   year: 1
   review: MyText
+  genre: two
+  publisher: two
+  developer: two

@@ -19,7 +19,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_25_072441) do
     t.integer "publisher_id", null: false
     t.integer "developer_id", null: false
     t.datetime "created_at", null: false
-    t.datetime "updated_at", null: falsepo
+    t.datetime "updated_at", null: false
     t.index ["developer_id"], name: "index_games_on_developer_id"
     t.index ["genre_id"], name: "index_games_on_genre_id"
     t.index ["publisher_id"], name: "index_games_on_publisher_id"

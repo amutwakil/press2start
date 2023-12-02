@@ -1,4 +1,7 @@
 class Game < ApplicationRecord
+
+  before_save :generate_slug
+
   validates_uniqueness_of :title, case_sensitive: false
   validates_presence_of :title, :year, :review
 
@@ -7,5 +10,14 @@ class Game < ApplicationRecord
   belongs_to :developer
   belongs_to :platform
 
-  #has_many :game_ratings
+  has_many :game_ratings
+
+  def to_param
+    slug
+  end
+
+  private
+  def generate_slug
+    self.slug = title.parameterize
+  end
 end

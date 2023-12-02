@@ -1,0 +1,8 @@
+<h1>Reviews</h1>
+<% @games.each do |game| %>
+  <li>
+    <%= link_to(game.title, game_path(game)) %>
+    <% formatted_time = game.created_at.strftime("%B %d, %Y, %I:%M %p") %>
+    Published: <%= formatted_time %>
+  </li>
+<% end %>

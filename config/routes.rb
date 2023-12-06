@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
   # games
   get 'reviews', to: 'games#index'
-  resources :games, path: 'game'
+  get 'games', to: 'games#index'
+  post 'games', to: 'games#create'
+  resources :games, path: 'game', except: [:index, :create]
 
 end

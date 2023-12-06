@@ -9,6 +9,7 @@ class Game < ApplicationRecord
   belongs_to :publisher
   belongs_to :developer
   belongs_to :platform
+  belongs_to :series, optional: true
 
   has_many :game_ratings
 

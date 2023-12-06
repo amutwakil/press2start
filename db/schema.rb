@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_30_042831) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_06_025539) do
   create_table "developers", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
@@ -54,10 +54,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_30_042831) do
     t.datetime "updated_at", null: false
     t.integer "platform_id", null: false
     t.string "slug"
+    t.integer "series_id"
     t.index ["developer_id"], name: "index_games_on_developer_id"
     t.index ["genre_id"], name: "index_games_on_genre_id"
     t.index ["platform_id"], name: "index_games_on_platform_id"
     t.index ["publisher_id"], name: "index_games_on_publisher_id"
+    t.index ["series_id"], name: "index_games_on_series_id"
     t.index ["slug"], name: "index_games_on_slug", unique: true
     t.index ["title"], name: "index_games_on_title", unique: true
   end
@@ -83,6 +85,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_30_042831) do
     t.index ["name"], name: "index_publishers_on_name", unique: true
   end
 
+  create_table "series", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_series_on_name", unique: true
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "email", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+  end
+
   add_foreign_key "game_rating_combos", "game_rating_categories"
   add_foreign_key "game_ratings", "game_rating_combos"
   add_foreign_key "game_ratings", "games"
@@ -90,4 +107,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_30_042831) do
   add_foreign_key "games", "genres"
   add_foreign_key "games", "platforms"
   add_foreign_key "games", "publishers"
+  add_foreign_key "games", "series"
 end

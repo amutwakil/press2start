@@ -7,4 +7,5 @@ class GamesController < ApplicationController
     @game = Game.find_by!(slug: params[:id])
   end
 
+
 end

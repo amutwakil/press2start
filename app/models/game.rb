@@ -11,6 +11,7 @@ class Game < ApplicationRecord
   belongs_to :platform
   belongs_to :series, optional: true
 
+  has_many_attached :screenshots
   has_many :game_ratings
 
   def to_param

@@ -12,7 +12,10 @@ Rails.application.configure do
   config.eager_load = false
 
   # Show full error reports.
-  config.consider_all_requests_local = true
+  config.consider_all_requests_local = false
+
+  #serve custom error pages
+  config.exceptions_app = self.routes
 
   # Enable server timing
   config.server_timing = true

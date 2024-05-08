@@ -1,0 +1,147 @@
+<% if @game.errors.any? %>
+  You have the following <%= @game.errors.count %> errors below:
+  <ul>
+    <% @game.errors.full_messages.each do |oopsy| %>
+      <li><%= oopsy %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_with model: @game, local: true do |form| %>
+  <div>
+    <%= form.label :title, "Title:" %>
+    <%= form.text_field :title %>
+  </div>
+  <div>
+    <%= form.label :year, "Year:" %>
+    <%= form.text_field :year %>
+  </div>
+  <div>
+    <%= form.label :summary, "Summary:" %>
+    <%= form.text_field :summary %>
+  </div>
+  <div>
+    <%= form.label :genre_id, "Genre:" %>
+    <%= form.select :genre_id, Genre.all.map{|g| [g.name, g.id]}, include_blank: true %>
+  </div>
+  <div class ="big-wrapper"> <!--  #PLATFORM-->
+    <div id="platform_selectfield_wrapper">
+      <%= form.label  :platform_id %>
+      <%= form.select :platform_id, Platform.all.map{|p| [p.name, p.id]}, include_blank: true  %>
+    </div>
+
+    <div id="platform_checkbox_wrapper">
+      <label for="platform_id_checkbox">Add platform?</label>
+      <input type="checkbox" id="platform_id_checkbox">
+    </div>
+
+    <div id="platform_textfield_wrapper" style="display:none">
+      <%= form.label :new_platform, "Platform" %>
+      <%= form.text_field :new_platform %>
+    </div>
+  </div>
+  <div class ="big-wrapper"> <!--  #DEVELOPER-->
+    <div id="developer_selectfield_wrapper">
+      <%= form.label  :developer_id %>
+      <%= form.select :developer_id, Developer.all.map{|d| [d.name, d.id]}, include_blank: true  %>
+    </div>
+
+    <div id="developer_checkbox_wrapper">
+      <label for="developer_id_checkbox">Add developer?</label>
+      <input type="checkbox" id="developer_id_checkbox">
+    </div>
+
+    <div id="developer_textfield_wrapper" style="display:none">
+      <%= form.label :new_developer, "Developer" %>
+      <%= form.text_field :new_developer %>
+    </div>
+  </div>
+  <div class ="big-wrapper"> <!--  #PUBLISHER-->
+    <div id="publisher_selectfield_wrapper">
+      <%= form.label  :publisher_id %>
+      <%= form.select :publisher_id, Publisher.all.map{|pub| [pub.name, pub.id]}, include_blank: true  %>
+    </div>
+
+    <div id="publisher_checkbox_wrapper">
+      <label for="publisher_id_checkbox">Add publisher?</label>
+      <input type="checkbox" id="publisher_id_checkbox">
+    </div>
+
+    <div id="publisher_textfield_wrapper" style="display:none">
+      <%= form.label :new_publisher, "Publisher" %>
+      <%= form.text_field :new_publisher %>
+    </div>
+      <!--    add rating attributes-->
+      <div>
+        <%= form.label :review, "Review:" %>
+        <%= form.text_area :review %>
+      </div>
+  </div>
+      <%= form.submit %>
+<% end %>
+
+<script>
+
+    //PLATFORM
+    platform_selectfield_wrapper = document.getElementById("platform_selectfield_wrapper");
+    platform_checkbox = document.getElementById("platform_id_checkbox");
+    platform_textfield_wrapper = document.getElementById("platform_textfield_wrapper");
+    platform_selectfield = document.getElementById("game_platform_id");
+    platform_textfield = document.getElementById("game_new_platform")
+
+    //DEVELOPER
+    developer_selectfield_wrapper = document.getElementById("developer_selectfield_wrapper");
+    developer_checkbox = document.getElementById("developer_id_checkbox");
+    developer_textfield_wrapper = document.getElementById("developer_textfield_wrapper");
+    developer_selectfield = document.getElementById("game_developer_id")
+    developer_textfield = document.getElementById("game_new_developer")
+
+    //PUBLISHER
+    publisher_selectfield_wrapper = document.getElementById("publisher_selectfield_wrapper");
+    publisher_checkbox = document.getElementById("publisher_id_checkbox");
+    publisher_textfield_wrapper = document.getElementById("publisher_textfield_wrapper");
+    publisher_textfield = document.getElementById("game_new_publisher")
+    publisher_selectfield = document.getElementById("game_publisher_id")
+
+
+    toggle_textfield_entry({
+        select_wrapper: platform_selectfield_wrapper,
+        selectfield: platform_selectfield,
+        checkbox: platform_checkbox,
+        textfield_wrapper: platform_textfield_wrapper,
+        textfield: platform_textfield
+    })
+
+    toggle_textfield_entry({
+        select_wrapper: developer_selectfield_wrapper,
+        selectfield: developer_selectfield,
+        textfield_wrapper: developer_textfield_wrapper,
+        textfield: developer_textfield,
+        checkbox: developer_checkbox
+    })
+
+    toggle_textfield_entry({
+        select_wrapper: publisher_selectfield_wrapper,
+        textfield_wrapper: publisher_textfield_wrapper,
+        selectfield: publisher_selectfield,
+        textfield: publisher_textfield,
+        checkbox: publisher_checkbox
+    })
+
+
+    function toggle_textfield_entry({select_wrapper, selectfield, checkbox, textfield_wrapper, textfield}) {
+        checkbox.addEventListener('click', () => {
+            if (checkbox.checked) {
+                textfield_wrapper.style.display = "block"
+                select_wrapper.style.display = "none"
+                selectfield.options[0].selected = true
+            } else {
+                textfield_wrapper.style.display = "none"
+                select_wrapper.style.display = "block"
+                textfield.value = ""
+            }
+        })
+    }
+
+    // 🧪 COOK! 🐱‍👤🐱‍💻🔥🔥
+</script>

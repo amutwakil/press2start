@@ -1,8 +1,10 @@
-<h1>Latest Game Reviews</h1>
+<!--  flex both with: [col [row], col [row, row]-->
+<h1>Game Reviews</h1>
+<h3><%= link_to("create new review", new_game_path )%></h3>
 <% @games.each do |game| %>
   <li>
+    <img src="">
     <%= link_to(game.title, game_path(game)) %>
-    <% formatted_time = game.created_at.strftime("%B %d, %Y, %I:%M %p") %>
-    Published: <%= formatted_time %>
+    <%= game.summary %>
   </li>
 <% end %>

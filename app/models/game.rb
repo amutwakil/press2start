@@ -1,6 +1,6 @@
 class Game < ApplicationRecord
 
-  before_save :generate_slug #1
+  before_save :generate_slug
 
   #validations
   validates_uniqueness_of :title, case_sensitive: false
@@ -17,7 +17,7 @@ class Game < ApplicationRecord
   belongs_to :series, optional: true
 
   #active storage
-  # #WIP 🚧🤔💭
+  #WIP 🚧🤔💭
   has_many_attached :screenshots
   has_one_attached :cover_art
 
@@ -25,8 +25,12 @@ class Game < ApplicationRecord
     slug
   end
 
+  accepts_nested_attributes_for :developer, reject_if: :all_blank
+  accepts_nested_attributes_for :platform, reject_if: :all_blank
+  accepts_nested_attributes_for :publisher, reject_if: :all_blank
+
   private
-  def generate_slug #2
+  def generate_slug
     self.slug = title.parameterize
   end
 

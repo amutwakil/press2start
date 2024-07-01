@@ -43,7 +43,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_11_033006) do
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_developers_on_name", unique: true
+    t.index ["name"], name: "index_developers_on_name"
   end
 
   create_table "games", force: :cascade do |t|
@@ -79,14 +79,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_11_033006) do
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_platforms_on_name", unique: true
+    t.index ["name"], name: "index_platforms_on_name"
   end
 
   create_table "publishers", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_publishers_on_name", unique: true
+    t.index ["name"], name: "index_publishers_on_name"
   end
 
   create_table "series", force: :cascade do |t|

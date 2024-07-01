@@ -27,7 +27,7 @@
   <div class ="big-wrapper"> <!--  #PLATFORM-->
     <div id="platform_selectfield_wrapper">
       <%= form.label  :platform_id %>
-      <%= form.select :platform_id, Platform.all.map{|p| [p.name, p.id]}, include_blank: true  %>
+      <%= form.select :platform_id, Platform.all.map{|p| [p.name, p.id]}, include_blank: true %>
     </div>
 
     <div id="platform_checkbox_wrapper">
@@ -36,8 +36,10 @@
     </div>
 
     <div id="platform_textfield_wrapper" style="display:none">
-      <%= form.label :new_platform, "Platform" %>
-      <%= form.text_field :new_platform %>
+      <%= form.fields_for :platform_attributes do |plat| %>
+        <%= plat.label :name, "Platform:" %>
+        <%= plat.text_field :name %>
+      <% end %>
     </div>
   </div>
   <div class ="big-wrapper"> <!--  #DEVELOPER-->
@@ -52,10 +54,13 @@
     </div>
 
     <div id="developer_textfield_wrapper" style="display:none">
-      <%= form.label :new_developer, "Developer" %>
-      <%= form.text_field :new_developer %>
+      <%= form.fields_for :developer_attributes do |dev| %>
+        <% dev.label :name, "Developer:" %>
+        <% dev.text_field :name %>
+      <% end %>
     </div>
   </div>
+
   <div class ="big-wrapper"> <!--  #PUBLISHER-->
     <div id="publisher_selectfield_wrapper">
       <%= form.label  :publisher_id %>
@@ -68,8 +73,10 @@
     </div>
 
     <div id="publisher_textfield_wrapper" style="display:none">
-      <%= form.label :new_publisher, "Publisher" %>
-      <%= form.text_field :new_publisher %>
+      <%= form.fields_for :publisher_attributes do |pub| %>
+        <%= pub.label :name, "Publisher" %>
+        <%= pub.text_field :name %>
+      <% end %>
     </div>
       <!--    add rating attributes-->
       <div>
@@ -82,6 +89,7 @@
 
 <script>
 
+    //identifying every single one of these god damn nodes
     //PLATFORM
     platform_selectfield_wrapper = document.getElementById("platform_selectfield_wrapper");
     platform_checkbox = document.getElementById("platform_id_checkbox");
@@ -143,5 +151,5 @@
         })
     }
 
-    // 🧪 COOK! 🐱‍👤🐱‍💻🔥🔥
+
 </script>

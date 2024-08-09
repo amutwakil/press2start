@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_11_033006) do
+ActiveRecord::Schema[7.0].define(version: 2024_08_07_231731) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -40,10 +40,24 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_11_033006) do
   end
 
   create_table "developers", force: :cascade do |t|
-    t.string "name", null: false
+    t.string "display_name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_developers_on_name"
+    t.string "backend_name"
+    t.index ["backend_name"], name: "index_developers_on_backend_name", unique: true
+    t.index ["display_name"], name: "index_developers_on_display_name"
+  end
+
+  create_table "endgame_appeal_ratings", force: :cascade do |t|
+    t.string "option", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "fun_factor_ratings", force: :cascade do |t|
+    t.string "option", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "games", force: :cascade do |t|
@@ -76,17 +90,40 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_11_033006) do
   end
 
   create_table "platforms", force: :cascade do |t|
-    t.string "name", null: false
+    t.string "display_name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_platforms_on_name"
+    t.string "backend_name"
+    t.index ["backend_name"], name: "index_platforms_on_backend_name", unique: true
+    t.index ["display_name"], name: "index_platforms_on_display_name"
   end
 
   create_table "publishers", force: :cascade do |t|
-    t.string "name", null: false
+    t.string "display_name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_publishers_on_name"
+    t.string "backend_name"
+    t.index ["backend_name"], name: "index_publishers_on_backend_name", unique: true
+    t.index ["display_name"], name: "index_publishers_on_display_name"
+  end
+
+  create_table "rating_sets", force: :cascade do |t|
+    t.integer "game_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "replayability_rating_id", null: false
+    t.integer "fun_factor_rating_id", null: false
+    t.integer "endgame_appeal_rating_id", null: false
+    t.index ["endgame_appeal_rating_id"], name: "index_rating_sets_on_endgame_appeal_rating_id"
+    t.index ["fun_factor_rating_id"], name: "index_rating_sets_on_fun_factor_rating_id"
+    t.index ["game_id"], name: "index_rating_sets_on_game_id"
+    t.index ["replayability_rating_id"], name: "index_rating_sets_on_replayability_rating_id"
+  end
+
+  create_table "replayability_ratings", force: :cascade do |t|
+    t.string "option", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "series", force: :cascade do |t|
@@ -111,4 +148,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_11_033006) do
   add_foreign_key "games", "platforms"
   add_foreign_key "games", "publishers"
   add_foreign_key "games", "series"
+  add_foreign_key "rating_sets", "endgame_appeal_ratings"
+  add_foreign_key "rating_sets", "fun_factor_ratings"
+  add_foreign_key "rating_sets", "games"
+  add_foreign_key "rating_sets", "replayability_ratings"
 end

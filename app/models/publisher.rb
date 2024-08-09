@@ -1,6 +1,8 @@
 class Publisher < ApplicationRecord
-  validates_presence_of :name
-  validates_uniqueness_of :name, case_sensitive: false
+  before_validation :scrub_input
+  before_save :store_backend_name
 
+  validates_presence_of :display_name
+  validate :check_uniqueness
   has_many :games
 end

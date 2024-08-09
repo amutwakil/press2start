@@ -13,6 +13,7 @@ class Game < ApplicationRecord
   belongs_to :publisher
   belongs_to :developer
   belongs_to :platform
+  has_one :rating_set
   #WIP 🚧🤔💭
   belongs_to :series, optional: true
 

@@ -24,58 +24,59 @@
     <%= form.label :genre_id, "Genre:" %>
     <%= form.select :genre_id, Genre.all.map{|g| [g.name, g.id]}, include_blank: true %>
   </div>
-  <div class ="big-wrapper"> <!--  #PLATFORM-->
+  <div class ="big-wrapper"> <!-- 🎮🎮🎮🎮  #PLATFORM 🎮🎮🎮🎮-->
     <div id="platform_selectfield_wrapper">
       <%= form.label  :platform_id %>
-      <%= form.select :platform_id, Platform.all.map{|p| [p.name, p.id]}, include_blank: true %>
+      <%= form.select :platform_id, Platform.all.map{|p| [p.display_name, p.id]}, include_blank: true %>
     </div>
 
     <div id="platform_checkbox_wrapper">
       <label for="platform_id_checkbox">Add platform?</label>
-      <input type="checkbox" id="platform_id_checkbox">
+      <!--    # COOK 👨🏽‍🍳👨🏽‍🔬🧪🧫 💉💉💉💉💉💉💉💉💉💉💉💉💉💉-->
+      <%= check_box_tag 'platform_id_checkbox', 'yes', is_checked?(@platform_checkbox) %>
     </div>
 
-    <div id="platform_textfield_wrapper" style="display:none">
+    <div id="platform_textfield_wrapper" style="display:<%= @platform_checkbox ? 'block' : 'none' %>">
       <%= form.fields_for :platform_attributes do |plat| %>
-        <%= plat.label :name, "Platform:" %>
-        <%= plat.text_field :name %>
+        <%= plat.label :display_name, "Platform:" %>
+        <%= plat.text_field :display_name, value: @platform_textfield_value %>
       <% end %>
     </div>
   </div>
-  <div class ="big-wrapper"> <!--  #DEVELOPER-->
+  <div class ="big-wrapper"> <!--  👨‍💻👨‍💻👨‍💻 #DEVELOPER 👨‍💻👨‍💻👨‍💻 -->
     <div id="developer_selectfield_wrapper">
       <%= form.label  :developer_id %>
-      <%= form.select :developer_id, Developer.all.map{|d| [d.name, d.id]}, include_blank: true  %>
+      <%= form.select :developer_id, Developer.all.map{|d| [d.display_name, d.id]}, include_blank: true  %>
     </div>
 
     <div id="developer_checkbox_wrapper">
       <label for="developer_id_checkbox">Add developer?</label>
-      <input type="checkbox" id="developer_id_checkbox">
+      <%= check_box_tag 'developer_id_checkbox', "yes", is_checked?(@developer_checkbox) %>
     </div>
 
-    <div id="developer_textfield_wrapper" style="display:none">
+    <div id="developer_textfield_wrapper" style="display: <%= @developer_checkbox ? 'block' : 'none' %>">
       <%= form.fields_for :developer_attributes do |dev| %>
-        <% dev.label :name, "Developer:" %>
-        <% dev.text_field :name %>
+        <% dev.label :display_name, "Developer:" %>
+        <% dev.text_field :display_name, value: @developer_textfield_value %>
       <% end %>
     </div>
   </div>
 
-  <div class ="big-wrapper"> <!--  #PUBLISHER-->
+  <div class ="big-wrapper"> <!-- 📝📝📝  #PUBLISHER 📝📝📝 -->
     <div id="publisher_selectfield_wrapper">
       <%= form.label  :publisher_id %>
-      <%= form.select :publisher_id, Publisher.all.map{|pub| [pub.name, pub.id]}, include_blank: true  %>
+      <%= form.select :publisher_id, Publisher.all.map{|pub| [pub.display_name, pub.id]}, include_blank: true  %>
     </div>
 
     <div id="publisher_checkbox_wrapper">
       <label for="publisher_id_checkbox">Add publisher?</label>
-      <input type="checkbox" id="publisher_id_checkbox">
+      <%= check_box_tag 'publisher_id_checkbox', "yes", is_checked?(@publisher_checkbox) %>
     </div>
 
-    <div id="publisher_textfield_wrapper" style="display:none">
+    <div id="publisher_textfield_wrapper" style="display: <%= @publisher_checkbox ? 'block' : 'none' %>">
       <%= form.fields_for :publisher_attributes do |pub| %>
-        <%= pub.label :name, "Publisher" %>
-        <%= pub.text_field :name %>
+        <%= pub.label :display_name, "Publisher" %>
+        <%= pub.text_field :display_name, value: @publisher_textfield_value %>
       <% end %>
     </div>
       <!--    add rating attributes-->
@@ -95,24 +96,24 @@
     platform_checkbox = document.getElementById("platform_id_checkbox");
     platform_textfield_wrapper = document.getElementById("platform_textfield_wrapper");
     platform_selectfield = document.getElementById("game_platform_id");
-    platform_textfield = document.getElementById("game_new_platform")
+    platform_textfield = document.getElementById("game_platform_attributes_display_name")
 
     //DEVELOPER
     developer_selectfield_wrapper = document.getElementById("developer_selectfield_wrapper");
     developer_checkbox = document.getElementById("developer_id_checkbox");
     developer_textfield_wrapper = document.getElementById("developer_textfield_wrapper");
     developer_selectfield = document.getElementById("game_developer_id")
-    developer_textfield = document.getElementById("game_new_developer")
+    developer_textfield = document.getElementById("game_developer_attributes_display_name")
 
     //PUBLISHER
     publisher_selectfield_wrapper = document.getElementById("publisher_selectfield_wrapper");
     publisher_checkbox = document.getElementById("publisher_id_checkbox");
     publisher_textfield_wrapper = document.getElementById("publisher_textfield_wrapper");
-    publisher_textfield = document.getElementById("game_new_publisher")
     publisher_selectfield = document.getElementById("game_publisher_id")
+    publisher_textfield = document.getElementById("game_publisher_attributes_display_name")
 
 
-    toggle_textfield_entry({
+    toggleElementsBasedOnInteraction({
         select_wrapper: platform_selectfield_wrapper,
         selectfield: platform_selectfield,
         checkbox: platform_checkbox,
@@ -120,7 +121,7 @@
         textfield: platform_textfield
     })
 
-    toggle_textfield_entry({
+    toggleElementsBasedOnInteraction({
         select_wrapper: developer_selectfield_wrapper,
         selectfield: developer_selectfield,
         textfield_wrapper: developer_textfield_wrapper,
@@ -128,7 +129,7 @@
         checkbox: developer_checkbox
     })
 
-    toggle_textfield_entry({
+    toggleElementsBasedOnInteraction({
         select_wrapper: publisher_selectfield_wrapper,
         textfield_wrapper: publisher_textfield_wrapper,
         selectfield: publisher_selectfield,
@@ -136,20 +137,31 @@
         checkbox: publisher_checkbox
     })
 
+    function toggleElementsBasedOnInteraction({select_wrapper, textfield_wrapper, selectfield, textfield, checkbox}){
+        selectfield.addEventListener("change", (event) => {
+            //when we make a change to the selectfield, we:
+            // 1. uncheck the corresponding checkbox 2. clear out the textfield 3. set the textfield to hide
+            checkbox.checked = false;
+            makeElementUpdates()
+        });
 
-    function toggle_textfield_entry({select_wrapper, selectfield, checkbox, textfield_wrapper, textfield}) {
-        checkbox.addEventListener('click', () => {
-            if (checkbox.checked) {
+        checkbox.addEventListener("change", makeElementUpdates)
+        textfield.addEventListener("input", makeElementUpdates)
+
+        function makeElementUpdates() {
+            // if the corresponding checkbox is checked, we show the textfield wrapper & clear out the select field
+            if(checkbox.checked){
+                selectfield.value = ""
                 textfield_wrapper.style.display = "block"
-                select_wrapper.style.display = "none"
-                selectfield.options[0].selected = true
+
+            // else we clear out the textfield.value & hide the wrapper
             } else {
-                textfield_wrapper.style.display = "none"
-                select_wrapper.style.display = "block"
                 textfield.value = ""
+                textfield_wrapper.style.display = "none"
             }
-        })
+        }
     }
+
 
 
 </script>

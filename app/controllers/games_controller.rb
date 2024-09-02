@@ -64,7 +64,14 @@ class GamesController < ApplicationController
   end
   # 📶📶📶
   def game_params
-    params.require(:game).permit(:title, :summary, :year, :review, :genre_id, :publisher_id, :developer_id, :platform_id, developer_attributes: [:display_name], platform_attributes: [:display_name], publisher_attributes: [:display_name])
+    #:rating_set_attributes[:endgame_appeal_rating_attributes, ... ]
+    params.require(:game).permit(:title, :summary, :year, :review, :genre_id,
+                                 :publisher_id, :developer_id, :platform_id,
+                                 developer_attributes: [:display_name],
+                                 platform_attributes: [:display_name],
+                                 publisher_attributes: [:display_name],
+                                 rating_set_attributes: [:fun_factor_rating_id, :endgame_appeal_rating_id, :replayability_rating_id])
+
   end
 
 end

@@ -7,27 +7,42 @@
   </ul>
 <% end %>
 
-<%= form_with model: @game, local: true do |form| %>
+<%= form_with model: @game, local: true do |game| %>
   <div>
-    <%= form.label :title, "Title:" %>
-    <%= form.text_field :title %>
+    <%= game.label :title, "Title:" %>
+    <%= game.text_field :title %>
   </div>
   <div>
-    <%= form.label :year, "Year:" %>
-    <%= form.text_field :year %>
+    <%= game.label :year, "Year:" %>
+    <%= game.text_field :year %>
   </div>
   <div>
-    <%= form.label :summary, "Summary:" %>
-    <%= form.text_field :summary %>
+    <%= game.label :summary, "Summary:" %>
+    <%= game.text_field :summary %>
   </div>
   <div>
-    <%= form.label :genre_id, "Genre:" %>
-    <%= form.select :genre_id, Genre.all.map{|g| [g.name, g.id]}, include_blank: true %>
+    <%= game.label :genre_id, "Genre:" %>
+    <%= game.select :genre_id, Genre.all.map{|g| [g.name, g.id]}, include_blank: true %>
+  </div>
+  <div class = "rating-set">
+    <%= game.fields_for :rating_set_attributes, @game.rating_set do |rating_set| %>
+
+      <!--    #params[game][rating_set][fun_factor_rating_id]-->
+      <%= rating_set.label :fun_factor_rating_id, "Fun Factor" %>
+      <%= rating_set.select :fun_factor_rating_id, FunFactorRating.all.map{|ffr| [ffr.option, ffr.id]}, include_blank: true%>
+
+      <%= rating_set.label :endgame_appeal_rating_id, "Endgame Appeal" %>
+      <%= rating_set.select :endgame_appeal_rating_id, EndgameAppealRating.all.map{|egr| [egr.option, egr.id]}, include_blank: true%>
+
+      <%= rating_set.label :replayability_rating_id, "Fun Factor" %>
+      <%= rating_set.select :replayability_rating_id, ReplayabilityRating.all.map{|rr| [rr.option, rr.id]}, include_blank: true%>
+    <% end %>
+
   </div>
   <div class ="big-wrapper"> <!-- 🎮🎮🎮🎮  #PLATFORM 🎮🎮🎮🎮-->
     <div id="platform_selectfield_wrapper">
-      <%= form.label  :platform_id %>
-      <%= form.select :platform_id, Platform.all.map{|p| [p.display_name, p.id]}, include_blank: true %>
+      <%= game.label  :platform_id %>
+      <%= game.select :platform_id, Platform.all.map{|p| [p.display_name, p.id]}, include_blank: true %>
     </div>
 
     <div id="platform_checkbox_wrapper">
@@ -37,7 +52,7 @@
     </div>
 
     <div id="platform_textfield_wrapper" style="display:<%= @platform_checkbox ? 'block' : 'none' %>">
-      <%= form.fields_for :platform_attributes do |plat| %>
+      <%= game.fields_for :platform_attributes do |plat| %>
         <%= plat.label :display_name, "Platform:" %>
         <%= plat.text_field :display_name, value: @platform_textfield_value %>
       <% end %>
@@ -45,8 +60,8 @@
   </div>
   <div class ="big-wrapper"> <!--  👨‍💻👨‍💻👨‍💻 #DEVELOPER 👨‍💻👨‍💻👨‍💻 -->
     <div id="developer_selectfield_wrapper">
-      <%= form.label  :developer_id %>
-      <%= form.select :developer_id, Developer.all.map{|d| [d.display_name, d.id]}, include_blank: true  %>
+      <%= game.label  :developer_id %>
+      <%= game.select :developer_id, Developer.all.map{|d| [d.display_name, d.id]}, include_blank: true  %>
     </div>
 
     <div id="developer_checkbox_wrapper">
@@ -55,17 +70,16 @@
     </div>
 
     <div id="developer_textfield_wrapper" style="display: <%= @developer_checkbox ? 'block' : 'none' %>">
-      <%= form.fields_for :developer_attributes do |dev| %>
+      <%= game.fields_for :developer_attributes do |dev| %>
         <% dev.label :display_name, "Developer:" %>
         <% dev.text_field :display_name, value: @developer_textfield_value %>
       <% end %>
     </div>
   </div>
-
   <div class ="big-wrapper"> <!-- 📝📝📝  #PUBLISHER 📝📝📝 -->
     <div id="publisher_selectfield_wrapper">
-      <%= form.label  :publisher_id %>
-      <%= form.select :publisher_id, Publisher.all.map{|pub| [pub.display_name, pub.id]}, include_blank: true  %>
+      <%= game.label  :publisher_id %>
+      <%= game.select :publisher_id, Publisher.all.map{|pub| [pub.display_name, pub.id]}, include_blank: true  %>
     </div>
 
     <div id="publisher_checkbox_wrapper">
@@ -74,18 +88,18 @@
     </div>
 
     <div id="publisher_textfield_wrapper" style="display: <%= @publisher_checkbox ? 'block' : 'none' %>">
-      <%= form.fields_for :publisher_attributes do |pub| %>
+      <%= game.fields_for :publisher_attributes do |pub| %>
         <%= pub.label :display_name, "Publisher" %>
         <%= pub.text_field :display_name, value: @publisher_textfield_value %>
       <% end %>
     </div>
       <!--    add rating attributes-->
       <div>
-        <%= form.label :review, "Review:" %>
-        <%= form.text_area :review %>
+        <%= game.label :review, "Review:" %>
+        <%= game.text_area :review %>
       </div>
   </div>
-      <%= form.submit %>
+      <%= game.submit %>
 <% end %>
 
 <script>

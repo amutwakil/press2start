@@ -26,7 +26,11 @@
 
 # rating_sets
 # belongs_to game
+# belongs to :end_game_appeal_rating
+# belongs to :replayability_rating
 # belongs to :fun_factor_rating
+
+
 # 	\ id \ game_id \ fun_factor_rating_id \ replayability_rating_id   \ endgame_appeal_rating_id
 # 	------------------------------------------------------------------------------------------------
 # 	\ 1   \ 10      \ 2 ('meh')                   \ 2 ('one & done')                  \ 1 ("without question")

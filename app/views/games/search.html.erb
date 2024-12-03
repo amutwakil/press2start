@@ -1,0 +1,18 @@
+<section>
+  <% case @games %>
+  <% when "too short" %>
+    <h2> Sorry! </h2>
+    <%= image_tag "icons/bmc computer.jpg" %>
+    <p>I can't search with such a short query.</p>
+    <p>Please try to enter the title (or part of it) of the game</p>
+  <% when "no reviews" %>
+    <h2> Sorry! </h2>
+    <%= image_tag "icons/bmc computer.jpg" %>
+    <p>I didn't find anything matching this title.</p>
+    <h3>Search: <%= @query %></h3>
+    <p>Please try again.</p>
+  <% else %>
+    <h2>Search: <%= @query %></h2>
+    <%= render partial: "/games/shared/shortened_show", locals: {games: @games} %>
+  <%end %>
+</section>

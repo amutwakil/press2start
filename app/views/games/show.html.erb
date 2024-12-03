@@ -1,21 +1,23 @@
-<%= link_to "edit game", edit_game_path %>
-<div class="flexbox">
-  <h1><%= @game.title %></h1>
-  <% formatted_time = @game.created_at.strftime("%B %d, %Y") %>
-  Posted on <%= formatted_time %> by ❓❔
-
-</div>
-
-<div class="flexbox">
-  <p>Platform: <%= @game.platform.display_name %></p>
-  <p>Year: <%= @game.year %></p>
-  <p>Genre: <%= @game.genre.name %></p>
-  <div>
-    Rating: include ratings below
+<section>
+  <%= link_to "edit game", edit_game_path %>
+  <!--- game title-->
+  <!--- author || created_at-->
+  <!--- summary || image-->
+  <div class="flex">
+    <h1><%= @game.title %></h1>
+    <% formatted_time = @game.created_at.strftime("%B %d, %Y") %>
+    Posted on <%= formatted_time %> by ❓❔
   </div>
-  <p>Publisher: <%= @game.publisher.display_name %></p>
-  <p>Developer: <%= @game.developer.display_name %></p>
-</div>
-<p>Review: <%= @game.review %></p>
 
-
+  <div class="flex">
+    <p>Platform: <%= @game.platform.display_name %></p>
+    <p>Year: <%= @game.year %></p>
+    <p>Genre: <%= @game.genre.name %></p>
+    <div>
+      Rating: include ratings below
+    </div>
+    <p>Publisher: <%= @game.publisher.display_name %></p>
+    <p>Developer: <%= @game.developer.display_name %></p>
+  </div>
+  <p>Review: <%= @game.review %></p>
+</section>

@@ -45,13 +45,43 @@ class GamesController < ApplicationController
     end
   end
 
+  def search
+    #I want 3 scenarios:
+    # 1-query too short
+    # 2-query results in no reviews returned
+    # 3-query results in one or more reviews returned
+    @query = params[:title]
+
+    if @query.length >= 2
+      if Game.where("title LIKE ?", "%#{@query}%").present?
+        @games = Game.where("title LIKE ?", "%#{@query}%")
+      else
+        @games = "no reviews"
+      end
+    else
+      @games = "too short"
+    end
+  end
+
+  def home
+
+    # displaying 'top 3 latest reviews' (simple enough, query for the 'first 3' after sorting by 'created_at')
+    # displaying 'top 3 most coveted' (not so simple. how we going to flag this? add a col in my reviews for coveted maybe? 🤔)
+
+  end
+  def new_arrivals
+
+    @games = Game.order(created_at: :desc)
+
+  end
+
+
   private
   def load_form_elements_for_render
-    #variables so I can refer to form elements by their names
+    #variables so I can refer to form elements by their names (directly below)
     @platform_textfield_reference = "game.platform_attributes.display_name"
     @developer_textfield_reference = "game.developer_attributes.display_name"
     @publisher_textfield_reference = "game.publisher_attributes.display_name"
-
 
     @platform_checkbox = params[:platform_id_checkbox]
     @developer_checkbox = params[:developer_id_checkbox]

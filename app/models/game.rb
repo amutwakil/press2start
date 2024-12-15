@@ -1,5 +1,4 @@
 class Game < ApplicationRecord
-
   before_save :generate_slug
 
   #validations

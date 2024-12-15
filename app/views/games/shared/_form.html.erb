@@ -97,6 +97,9 @@
         <%= game.label :review, "Review:" %>
         <%= game.text_area :review %>
       </div>
+    <div>
+      <%= game.file_field :cover_art %>
+    </div>
   </div>
       <%= game.submit %>
 <% end %>

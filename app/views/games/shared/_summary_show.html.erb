@@ -5,6 +5,8 @@
   </div>
   <div class="flex">
     <%= game.summary %>
-    <%= image_tag "cover_art/metal_gear_solid.png", alt: "placeholder img" %>
+    <% if game.cover_art.attached? %>
+      <%= image_tag game.cover_art %>
+    <% end %>
   </div>
 </section>

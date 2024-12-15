@@ -4,6 +4,9 @@
   <!--- author || created_at-->
   <!--- summary || image-->
   <div class="flex">
+    <% if @game.cover_art.attached? %>
+      <%= image_tag @game.cover_art %>
+    <% end %>
     <h1><%= @game.title %></h1>
     <% formatted_time = @game.created_at.strftime("%B %d, %Y") %>
     Posted on <%= formatted_time %> by ❓❔

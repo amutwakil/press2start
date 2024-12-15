@@ -27,9 +27,7 @@ class GamesController < ApplicationController
   end
 
   def edit #the form for a game review (contains EXISTING data)
-
     @game = Game.find_by!(slug: params[:id])
-
   end
 
   def update #the PATCH for updating an existing game
@@ -96,7 +94,7 @@ class GamesController < ApplicationController
   def game_params
     #:rating_set_attributes[:endgame_appeal_rating_attributes, ... ]
     params.require(:game).permit(:title, :summary, :year, :review, :genre_id,
-                                 :publisher_id, :developer_id, :platform_id,
+                                 :publisher_id, :developer_id, :platform_id, :cover_art,
                                  developer_attributes: [:display_name],
                                  platform_attributes: [:display_name],
                                  publisher_attributes: [:display_name],

@@ -1,10 +1,17 @@
-<section>
-  <h1>Latest Game Reviews</h1>
-  <h3><%= link_to("create new review", new_game_path )%></h3>
-  <!--since we're using the same _summary_show on the HOME page as well as reviews, the distinction is:-->
-  <!--HOME only displays 3 most recent reviews-->
-  <!--REVIEWS shows all of them-->
-  <% @games.each do |game| %>
-    <%= render partial: "games/shared/summary_show", locals: {game: game} %>
-  <% end %>
-</section>
+<main>
+  <section class="left-hand section">
+    <!-- do we make a partial here ❓ -->
+    <div class="flex flex-row">
+      <h1>Latest Game Reviews</h1>
+      <h4><%= link_to("create new review", new_game_path )%></h4>
+    </div>
+    <!--since we're using the same _summary_show on the HOME page as well as reviews, the distinction is:-->
+    <!--HOME only displays 3 most recent reviews-->
+    <!--REVIEWS shows all of them-->
+    <% @games.each do |game| %>
+      <%= render partial: "games/shared/short_show", locals: { game: game} %>
+    <% end %>
+    </section>
+</main>
+
+

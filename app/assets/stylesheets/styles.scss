@@ -54,6 +54,10 @@ h1, h2, h3, h4, .pixel *{
   color: rgb(235, 29,70)
 }
 
+.title:hover{
+  text-decoration: underline;
+}
+
 
 //at-rules
 @font-face {

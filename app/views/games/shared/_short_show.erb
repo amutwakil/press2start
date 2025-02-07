@@ -6,7 +6,7 @@
     </div>
     <div class="flex">
   <!--    cap review at 'x' paragraphs-->
-      <%= game.review %>
+      <%= trim_review game, 100 %>
       <% if game.cover_art.attached? %>
         <%= image_tag game.cover_art, class: "cover_art" %>
       <% end %>

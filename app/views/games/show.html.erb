@@ -1,28 +1,27 @@
-<section>
-  <h3><%= link_to "edit game", edit_game_path %></h3>
-  <!--- game title-->
-  <!--- author || created_at-->
-  <!--- summary || image-->
-  <div class="flex">
-    <% if @game.cover_art.attached? %>
-        <%= image_tag @game.cover_art, class: "cover_art" %>
+<main class="centered">
+  <section>
+    <h3><%= link_to "edit game", edit_game_path %></h3>
+    <div class="flex">
+      <% if @game.cover_art.attached? %>
+        <%= responsive_img_tag @game.cover_art, cover_art_dimensions %>
       <% else %>
-        <%= image_tag %>
-    <% end %>
-    <h1><%= @game.title %></h1>
-    <% formatted_time = @game.created_at.strftime("%B %d, %Y") %>
-    Published: <%= formatted_time %>
-  </div>
-
-  <div class="flex">
-    <p>Platform: <%= @game.platform.display_name %></p>
-    <p>Year: <%= @game.year %></p>
-    <p>Genre: <%= @game.genre.name %></p>
-    <div>
-      Rating: include ratings below
+        <%= image_tag "cover_art/chrono trigger.jpg", alt: "regular box art" %>
+      <% end %>
+      <h1><%= @game.title %></h1>
+      <% formatted_time = @game.created_at.strftime("%B %d, %Y") %>
+      Published: <%= formatted_time %>
     </div>
-    <p>Publisher: <%= @game.publisher.display_name %></p>
-    <p>Developer: <%= @game.developer.display_name %></p>
-  </div>
-  <p>Review: <%= @game.review %></p>
-</section>
+
+    <div class="flex">
+      <p>Platform: <%= @game.platform.display_name %></p>
+      <p>Year: <%= @game.year %></p>
+      <p>Genre: <%= @game.genre.name %></p>
+      <div>
+        Rating: include ratings below
+      </div>
+      <p>Publisher: <%= @game.publisher.display_name %></p>
+      <p>Developer: <%= @game.developer.display_name %></p>
+    </div>
+    <p>Review: <%= @game.review %></p>
+  </section>
+</main>

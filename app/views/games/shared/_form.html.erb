@@ -8,10 +8,11 @@
 <% end %>
 
 <%= form_with model: @game, local: true do |game| %>
-  <div>
+  <main>
     <%= game.label :title, "Title:" %>
+    <div>
     <%= game.text_field :title %>
-  </div>
+    </div>
   <div>
     <%= game.label :year, "Year:" %>
     <%= game.text_field :year %>
@@ -102,6 +103,7 @@
     </div>
   </div>
       <%= game.submit %>
+  </main>
 <% end %>
 
 <script>

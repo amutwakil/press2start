@@ -1,13 +1,13 @@
 <main>
   <section>
     <% games.each do |game| %>
-      <div class="flex flex-row">
+      <div class="flex row">
         <%= image_tag "cover_art/chrono trigger.jpg", alt: "regular box art" %>
         <ul>
-          <h3><%= game.title %></h3>
-          <li><%= game.summary %></li>
+          <h3><%= link_to game.title, game %></h3>
+          <li><%= trim_review game, 30 %></li>
           <div>
-            <ul class="flex flex-row">
+            <ul class="flex row">
               <li>Year: <%= game.year %></li>
               <li>Genre: <%= game.genre.name %></li>
             </ul>
@@ -15,6 +15,6 @@
           <li>tags 🔖🔖🔖</li>
         </ul>
       </div>
-    <% end %>`
+    <% end %>
   </section>
 </main>

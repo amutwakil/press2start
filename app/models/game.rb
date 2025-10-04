@@ -20,7 +20,11 @@ class Game < ApplicationRecord
   #active storage
   #WIP 🚧🤔💭
   has_many_attached :screenshots
-  has_one_attached :cover_art
+  has_one_attached :cover_art do |attachable|
+    attachable.variant :large, resize_to_fit: [500,500]
+    attachable.variant :medium, resize_to_fit: [300,300]
+    attachable.variant :small, resize_and_pad: [200, 200, {background: "black"}]
+  end
 
   def to_param
     slug
@@ -30,7 +34,6 @@ class Game < ApplicationRecord
   accepts_nested_attributes_for :platform, reject_if: :all_blank
   accepts_nested_attributes_for :publisher, reject_if: :all_blank
   accepts_nested_attributes_for :rating_set
-
 
   private
   def generate_slug

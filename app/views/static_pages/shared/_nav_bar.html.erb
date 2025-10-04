@@ -1,15 +1,15 @@
-<div class="nav-bar">
-  <nav class="flex">
-    <ul class="flex pages pixel">
+<nav class="nav-bar">
+  <div class="centered flex row space-between">
+    <ul class="flex row pages pixel">
       <li><%= active_link_to "home", root_path %></li>
       <li><%= active_link_to "reviews", reviews_path %></li>
       <li><%= active_link_to "(WIP)new arrivals", new_arrivals_path %></li>
     </ul>
-    <ul class="flex search">
-      <%= form_with url: games_search_path, method: :get, class: "flex flex-row" do |form| %>
+    <ul class="search">
+      <%= form_with url: games_search_path, method: :get, class: "flex row" do |form| %>
         <li><%= form.text_field :title, id: "search", placeholder: "game title" %></li>
         <li><%= form.submit "search", id: "search_button" %></li>
       <% end %>
     </ul>
-  </nav>
-</div>
+  </div>
+</nav>

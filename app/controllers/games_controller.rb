@@ -99,7 +99,6 @@ class GamesController < ApplicationController
                                  platform_attributes: [:display_name],
                                  publisher_attributes: [:display_name],
                                  rating_set_attributes: [:fun_factor_rating_id, :endgame_appeal_rating_id, :replayability_rating_id])
-
   end
 
 end

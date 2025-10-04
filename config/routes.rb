@@ -19,5 +19,6 @@ Rails.application.routes.draw do
   #errors
   match "/404", to: "errors#not_found", via: :all
   match "/500", to: "errors#internal_server_error", via: :all
+  get '/.well-known/*path', to: proc { [404, {}, []] }
 
 end

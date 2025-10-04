@@ -1,15 +1,13 @@
-<main>
-  <section>
-    <div class="flex flex-col">
+<section>
+    <div class="flex col">
       <h2><%= link_to game.title, game_path(game), class: "title"%></h2>
       <%= game.created_at.strftime("%B %d, %Y") %>
     </div>
-    <div class="flex">
+    <div class="flex row">
   <!--    cap review at 'x' paragraphs-->
       <%= trim_review game, 100 %>
       <% if game.cover_art.attached? %>
-        <%= image_tag game.cover_art, class: "cover_art" %>
+        <%= image_tag game.cover_art.variant(:small), class: "cover_art" %>
       <% end %>
     </div>
-  </section>
-</main>
+</section>
